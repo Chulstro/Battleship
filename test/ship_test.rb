@@ -12,9 +12,9 @@ class ShipTest < Minitest::Test
     assert_equal 3, @cruiser.length
   end
 
-  # def test_its_health
-  #   assert_equal 3, @cruiser.health
-  # end
+  def test_its_health
+    assert_equal 3, @cruiser.health
+  end
   #
   # def test_if_its_afloat
   #   assert_equal false, @cruiser.sunk?
