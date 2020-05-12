@@ -15,10 +15,10 @@ class ShipTest < Minitest::Test
   def test_its_health
     assert_equal 3, @cruiser.health
   end
-  #
-  # def test_if_its_afloat
-  #   assert_equal false, @cruiser.sunk?
-  # end
+
+  def test_if_its_afloat
+    assert_equal false, @cruiser.sunk?
+  end
   #
   # def test_health_removal
   #   @cruiser.hit
