@@ -1,5 +1,5 @@
 
-require '../lib/ship'
+require './lib/ship'
 require 'pry'
 
 class Cell
@@ -8,6 +8,7 @@ class Cell
 
   def initialize(coordinate)
     @coordinate = coordinate
+    @damage = false
   end
 
   def place_ship(ship)
@@ -26,7 +27,19 @@ class Cell
   def ship
     if self.place_ship(@ship) == true
       @ship
-    else
-      "Cell is empty"
     end
   end
+
+  def fired_upon?
+    if @damage == true
+      true
+    else
+      false
+    end
+  end
+
+  def fire_upon
+    @damage = true
+    self.ship.health -= 1
+  end
+end
