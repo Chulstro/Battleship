@@ -47,11 +47,40 @@ class Cell
     @damage = true
   end
 
-  def render
-    if self.fired_upon? == false
-      "."
-    elsif self.fired_upon? == true
-      "M"
+  def render(boolean = false)
+    if boolean == false
+      if self.empty? == true
+        if self.fired_upon? == false
+          "."
+        elsif self.fired_upon? == true
+          "M"
+        end
+      elsif self.empty? == false
+        if self.fired_upon? == false
+          "."
+        elsif self.ship.sunk? == true
+          "X"
+        elsif self.fired_upon? == true
+          "H"
+        end
+      end
+    else
+      if self.empty? == true
+        if self.fired_upon? == false
+          "."
+        elsif self.fired_upon? == true
+          "M"
+        end
+      elsif self.empty? == false
+        if self.fired_upon? == false
+          "S"
+        elsif self.ship.sunk? == true
+          "X"
+        elsif self.fired_upon? == true
+          "H"
+        end
+      end
     end
   end
+
 end
