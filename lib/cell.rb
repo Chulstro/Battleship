@@ -1,3 +1,4 @@
+
 require '../lib/ship'
 require 'pry'
 
@@ -29,5 +30,3 @@ class Cell
       "Cell is empty"
     end
   end
-
-end

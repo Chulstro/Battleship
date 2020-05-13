@@ -31,6 +31,3 @@ class CellTest < Minitest::Test
     @cell.place_ship(@cruiser)
     assert_equal @cruiser, @cell.ship
   end
-
-
-end
