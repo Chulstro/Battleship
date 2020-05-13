@@ -43,4 +43,11 @@ class CellTest < Minitest::Test
     assert_equal true, @cell.fired_upon?
     assert_equal 2, @cell.ship.health
   end
+
+  def test_status_rendering
+    assert_equal ".", @cell.render
+
+    @cell.fire_upon
+    assert_equal "M", @cell.render
+  end
 end

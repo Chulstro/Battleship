@@ -39,7 +39,15 @@ class Cell
   end
 
   def fire_upon
+    if self.ship.hit
     @damage = true
-    self.ship.health -= 1
+  end
+
+  def render
+    if self.fired_upon? == false
+      "."
+    elsif self.fired_upon? == true
+      "M"
+    end
   end
 end
