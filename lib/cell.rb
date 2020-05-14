@@ -1,5 +1,5 @@
 
-require '../lib/ship'
+require './lib/ship'
 require 'pry'
 
 class Cell
@@ -44,9 +44,8 @@ class Cell
     elsif self.empty? == false && self.fired_upon? == false
       @ship.hit
     else
-    end
-    @damage = true
-    @ship.hit
+      @damage = true
+      @ship.hit
     end
   end
 
@@ -85,5 +84,4 @@ class Cell
       end
     end
   end
-
 end
