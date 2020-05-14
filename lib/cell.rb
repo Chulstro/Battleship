@@ -1,5 +1,5 @@
 
-require './lib/ship'
+require '../lib/ship'
 require 'pry'
 
 class Cell
@@ -18,10 +18,10 @@ class Cell
   end
 
   def empty?
-    if self.place_ship(@ship) == true
-      false
-    else
+    if @ship == nil
       true
+    else
+      false
     end
   end
 
@@ -40,19 +40,50 @@ class Cell
   end
 
   def fire_upon
-    if self.fired_upon? == false
+    if self.empty? == true
+    elsif self.empty? == false && self.fired_upon? == false
+      @ship.hit
+    else
+    end
     @damage = true
     @ship.hit
     end
   end
 
   def render(boolean = false)
-    if self.fired_upon? == false
-      "."
-    elsif self.fired_upon? == true
-      "M"
-
-
+    if boolean == false
+      if self.empty? == true
+        if self.fired_upon? == false
+          "."
+        elsif self.fired_upon? == true
+          "M"
+        end
+      elsif self.empty? == false
+        if self.fired_upon? == false
+          "."
+        elsif self.ship.sunk? == true
+          "X"
+        elsif self.fired_upon? == true
+          "H"
+        end
+      end
+    else
+      if self.empty? == true
+        if self.fired_upon? == false
+          "."
+        elsif self.fired_upon? == true
+          "M"
+        end
+      elsif self.empty? == false
+        if self.fired_upon? == false
+          "S"
+        elsif self.ship.sunk? == true
+          "X"
+        elsif self.fired_upon? == true
+          "H"
+        end
+      end
     end
   end
+
 end
