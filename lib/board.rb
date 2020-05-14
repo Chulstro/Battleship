@@ -1,8 +1,8 @@
-require './lib/cell'
+require '../lib/cell'
 require 'pry'
 
 class Board
-  attr_reader :cell_list
+  attr_reader :cell_list, :cells
 
   def initialize
     @cell_list = [
@@ -29,5 +29,15 @@ class Board
     combo_cells = cell_list.map {|x| [x.coordinate, x]}
     @cells = combo_cells.to_h
     @cells
+  end
+
+  def valid_coordinate?(coordinate)
+    @cells.has_key?(coordinate)
+  end
+
+  def valid_placement?(ship, coordinates)
+    if ship.length == coordinates.count &&
+      if
+
   end
 end
