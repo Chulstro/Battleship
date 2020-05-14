@@ -4,7 +4,8 @@ require 'pry'
 
 class Cell
 
-  attr_reader :coordinate
+  attr_reader :coordinate,
+              :ship
 
   def initialize(coordinate)
     @coordinate = coordinate
@@ -39,15 +40,19 @@ class Cell
   end
 
   def fire_upon
-    if self.ship.hit
+    if self.fired_upon? == false
     @damage = true
+    @ship.hit
+    end
   end
 
-  def render
+  def render(boolean = false)
     if self.fired_upon? == false
       "."
     elsif self.fired_upon? == true
       "M"
+
+
     end
   end
 end

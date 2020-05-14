@@ -45,6 +45,8 @@ class CellTest < Minitest::Test
   end
 
   def test_status_rendering
+    @cell.place_ship(@cruiser)
+
     assert_equal ".", @cell.render
 
     @cell.fire_upon
