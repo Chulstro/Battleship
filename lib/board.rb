@@ -1,4 +1,4 @@
-require '../lib/cell'
+require './lib/cell'
 require 'pry'
 
 class Board
@@ -36,8 +36,18 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    if ship.length == coordinates.count &&
-      if
-
+    coord_letter = coordinates.map {|str| str.ord}
+    coord_num = coordinates.map {|str| str[1].to_i}
+    if ship.length == coordinates.count
+      if coord_letter.uniq.count == 1
+        coord_num == (coord_num.min..coord_num.max).to_a
+      elsif coord_num.uniq.count == 1
+        coord_letter == (coord_letter.min..coord_letter.max).to_a
+      else
+        false
+      end
+    else
+      false
+    end
   end
 end

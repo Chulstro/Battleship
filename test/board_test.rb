@@ -1,7 +1,7 @@
 require 'minitest/autorun'
-require '../lib/board'
-require '../lib/ship'
-require '../lib/cell'
+require './lib/board'
+require './lib/ship'
+require './lib/cell'
 require 'pry'
 
 class BoardTest < Minitest::Test
@@ -35,6 +35,14 @@ class BoardTest < Minitest::Test
 
     assert_equal false, @board.valid_placement?(cruiser, ["A1", "A2"])
     assert_equal true,  @board.valid_placement?(cruiser, ["A1", "A2", "A3"])
+
+    assert_equal false, @board.valid_placement?(cruiser, ["A1", "A2", "A4"])
+    assert_equal false, @board.valid_placement?(submarine, ["A1", "C1"])
+    assert_equal false, @board.valid_placement?(cruiser, ["A3", "A2", "A1"])
+    assert_equal false, @board.valid_placement?(submarine, ["C1", "B1"])
+
+    assert_equal false, @board.valid_placement?(cruiser, ["A1", "B2", "C3"])
+    assert_equal false, @board.valid_placement?(submarine, ["C2", "D3"])
   end
 
 end
