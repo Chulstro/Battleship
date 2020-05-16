@@ -45,4 +45,43 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.valid_placement?(submarine, ["C2", "D3"])
   end
 
+  def test_place_ship_and_overlap
+    @board.cells
+
+    cruiser = Ship.new("Cruiser",3)
+    submarine = Ship.new("Submarine",2)
+    @board.place(cruiser, ["A1", "A2", "A3"])
+
+    assert_equal false, @board.valid_placement?(submarine, ["A2", "B2"])
+  end
+
+  def test_cells_have_same_ship
+    @board.cells
+
+    cruiser = Ship.new("Cruiser",3)
+    submarine = Ship.new("Submarine",2)
+    @board.place(cruiser, ["A1", "A2", "A3"])
+    cell_1 = @board.cells["A1"]
+    cell_2 = @board.cells["A2"]
+
+    assert_equal true, cell_1.ship == cell_2.ship
+  end
+
+  def test_board_matrix_rendering
+    @board.cells
+
+    cruiser = Ship.new("Cruiser",3)
+    submarine = Ship.new("Submarine",2)
+    @board.place(cruiser, ["A1", "A2", "A3"])
+    @board.place(submarine, ["C1", "C2"])
+    # binding.pry
+
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . .", @board.render
+    @board.cells["A4"].fire_upon
+    @board.cells["C1"].fire_upon
+    @board.cells["C2"].fire_upon
+    @board.cells["A2"].fire_upon
+    assert_equal "  1 2 3 4 \nA . H . M \nB . . . . \nC X X . . \nD . . . .", @board.render
+    assert_equal "  1 2 3 4 \nA S H S M \nB . . . . \nC X X . . \nD . . . .", @board.render(true)
+  end
 end

@@ -31,6 +31,12 @@ class Board
     @cells
   end
 
+  def place(ship, coordinates)
+    coordinates.each do |coord|
+      @cells[coord].place_ship(ship)
+    end
+  end
+
   def valid_coordinate?(coordinate)
     @cells.has_key?(coordinate)
   end
@@ -38,7 +44,7 @@ class Board
   def valid_placement?(ship, coordinates)
     coord_letter = coordinates.map {|str| str.ord}
     coord_num = coordinates.map {|str| str[1].to_i}
-    if ship.length == coordinates.count
+    if ship.length == coordinates.count && coordinates.all? { |coord| @cells[coord].empty? == true}
       if coord_letter.uniq.count == 1
         coord_num == (coord_num.min..coord_num.max).to_a
       elsif coord_num.uniq.count == 1
@@ -49,5 +55,13 @@ class Board
     else
       false
     end
+  end
+
+  def render(owner = false)
+    "  1 2 3 4 \n" +
+    "A #{@cells["A1"].render(owner)} #{@cells["A2"].render(owner)} #{@cells["A3"].render(owner)} #{@cells["A4"].render(owner)} \n" +
+    "B #{@cells["B1"].render(owner)} #{@cells["B2"].render(owner)} #{@cells["B3"].render(owner)} #{@cells["B4"].render(owner)} \n" +
+    "C #{@cells["C1"].render(owner)} #{@cells["C2"].render(owner)} #{@cells["C3"].render(owner)} #{@cells["C4"].render(owner)} \n" +
+    "D #{@cells["D1"].render(owner)} #{@cells["D2"].render(owner)} #{@cells["D3"].render(owner)} #{@cells["D4"].render(owner)}"
   end
 end

@@ -1,4 +1,4 @@
-srequire 'minitest/autorun'
+require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/cell'
 require 'pry'
