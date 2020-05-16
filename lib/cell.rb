@@ -1,5 +1,5 @@
 
-require './lib/ship'
+require '../lib/ship'
 require 'pry'
 
 class Cell
@@ -85,4 +85,5 @@ class Cell
       end
     end
   end
+
 end
