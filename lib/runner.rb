@@ -21,6 +21,9 @@ class Runner
 
     @board.cells
     @board2.cells
+    @cruiser_array = []
+    @sub_array = []
+    @sub_location = []
   end
 
   def get_player_shot_input
@@ -33,9 +36,63 @@ class Runner
     end
   end
 
+
+
   def place_cruiser
 
-    puts "Please place your cruiser!"
+    puts "Enter the three coordinates for your cruiser placement: "
+    print "Coordinate 1: "
+    @coord1 = gets.chomp
+    print "Coordinate 2: "
+    @coord2 = gets.chomp
+    print "Coordinate 3: "
+    @coord3 = gets.chomp
+    @cruiser_array = [@coord1, @coord2, @coord3]
+
+    @cruiser_array.select do |coord|
+      if @board2.valid_coordinate?(coord) == false
+        puts "=" *25
+        puts "Coordinates are not valid!!! Please retry ship placement."
+        puts "=" *25
+        place_cruiser
+      end
+    end
+
+    if @board2.valid_placement?(@cruiser2, @cruiser_array) == true
+      puts "Cruiser is in position!"
+    else
+      puts "Cruiser position is not valid, please try again."
+    end
+  end
+
+  def place_submarine
+
+    puts "Enter the two coordinates for your submarine placement: "
+    print "Coordinate 1: "
+    @coord_sub_1 = gets.chomp
+    print "Coordinate 2: "
+    @coord_sub_2 = gets.chomp
+    @sub_array = [@coord_sub_1, @coord_sub_2]
+
+    @sub_array.select do |coord|
+      if @board2.valid_coordinate?(coord) == false
+        puts "=" *25
+        puts "Coordinates are not valid!!! Please retry ship placement."
+        puts "=" *25
+        place_submarine
+      end
+    end
+
+    if @board2.valid_placement?(@submarine2, @sub_array) == true
+      puts "Ships are placed. Get ready to play!"
+    else
+      puts "Submarine position is not valid, please try again."
+    end
+  end
+
+  def place_both_ships
+
+    puts "Please place your ships!"
     puts "Your cruiser occupies 3 adjacent cells, and cannot be placed diagonally."
 
     @board_cruiser_ex_1 = Board.new
@@ -43,59 +100,79 @@ class Runner
     @board_cruiser_ex_1.cells
     @board_cruiser_ex_2.cells
     cruiser_ex = Ship.new("Cruiser",3)
-    # @board_cruiser_ex_1.place(cruiser_ex, ["B2","B3","B4"])
-    # @board_cruiser_ex_2.place(cruiser_ex, ["A2","B2","C2"])
+    @board_cruiser_ex_1.place(cruiser_ex, ["B2","B3","B4"])
     puts "For example, here are two valid placements for your cruiser"
     puts "=" *25
     puts "First Placement: Coordinates B2, B3, and B4: "
     @board_cruiser_ex_1.render(true)
     puts "=" *25
     puts "Second Placement: Coordinates A2, B2, and C2: "
+    @board_cruiser_ex_2.place(cruiser_ex, ["A2","B2","C2"])
     @board_cruiser_ex_2.render(true)
     puts "="*25
 
-    puts "Enter the three coordinates for your cruiser placement: "
 
-    print "Coordinate 1: "
-    @coord1 = gets.chomp
-    print "Coordinate 2: "
-    @coord2 = gets.chomp
-    print "Coordinate 3: "
-    @coord3 = gets.chomp
 
-    @cruiser_array = [@coord1, @coord2, @coord3]
-    p @board2.valid_placement?(@cruiser2, @cruiser_array)
-
+    until (@board2.valid_placement?(@cruiser2, @cruiser_array) )
+      place_cruiser
+    end
 
     @board2.place(@cruiser2, @cruiser_array)
 
+
+
+    until (@board2.valid_placement?(@submarine2, @sub_array))
+      place_submarine
+    end
+
+    @board2.place(@submarine2, @sub_array)
+    @board2.render(true)
+
   end
 
-  def start
 
-    @board.cells
+  def start
+    place_both_ships
     place_ships
     puts "I have placed my defenses!"
 
     until ( (@cruiser.sunk? && @submarine.sunk?) ||(@cruiser2.sunk? && @submarine2.sunk?)) do
       get_player_shot_input
+      computer_shot_order
 
       board.cells[shot].fire_upon
+      @board2.cells[@random_selection[0]].fire_upon
+      @random_selection.shift
+
       puts "Enemy Board:"
-      board.render
-      # p @cruiser.sunk?
-      # p @submarine.sunk?
+      @board.render
+      puts "Your Board:"
+      @board2.render(true)
     end
     puts "Thanks for playing!"
   end
 
   def place_ships
-    board.place(@cruiser, ["A2", "A3", "A4"])
-    board.place(@submarine, ["C2", "D2"])
+    cruiser_locations = [["A1","A2","A3"],["A2","A3","A4"],["B1","B2","B3"],["B2","B3","B4"],["C1","C2","C3"],["C2","C3","C4"],["D1","D2","D3"],["D2","D3","D4"]]
+    board.place(@cruiser, cruiser_locations.sample)
+
+    submarine_locations = [["A1","A2"],["A2","A3"],["A3","A4"],["B1","B2"],["B2","B3"],["B3","B4"],["C1","C2"],["C2","C3"],["C3","C4"]]
+
+    until board.valid_placement?(@submarine, @sub_location)
+
+      @sub_location = submarine_locations.sample
+    end
+
+    board.place(@submarine, @sub_location)
+
+  end
+
+  def computer_shot_order
+    @random_selection = @board2.cells.keys.shuffle
   end
 
 
 end
 
 game = Runner.new("player1","player2")
-game.place_cruiser
+game.start
