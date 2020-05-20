@@ -1,4 +1,4 @@
-require '../lib/cell'
+require './lib/cell'
 require 'pry'
 
 class Board
