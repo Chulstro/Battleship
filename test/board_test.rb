@@ -1,4 +1,5 @@
 require 'minitest/autorun'
+require 'minitest/pride'
 require '../lib/board'
 require '../lib/ship'
 require '../lib/cell'
@@ -63,19 +64,17 @@ class BoardTest < Minitest::Test
     @board.place(cruiser, ["A1", "A2", "A3"])
     cell_1 = @board.cells["A1"]
     cell_2 = @board.cells["A2"]
-
     assert_equal true, cell_1.ship == cell_2.ship
   end
 
   def test_board_matrix_rendering
-    @board.cells
 
+    @board.cells
     cruiser = Ship.new("Cruiser",3)
     submarine = Ship.new("Submarine",2)
     @board.place(cruiser, ["A1", "A2", "A3"])
     @board.place(submarine, ["C1", "C2"])
-    # binding.pry
-
+    @board.render
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . .", @board.render
     @board.cells["A4"].fire_upon
     @board.cells["C1"].fire_upon
