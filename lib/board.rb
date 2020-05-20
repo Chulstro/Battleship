@@ -1,4 +1,4 @@
-require './lib/cell'
+require '../lib/cell'
 require 'pry'
 
 class Board
@@ -58,10 +58,17 @@ class Board
   end
 
   def render(owner = false)
-    "  1 2 3 4 \n" +
-    "A #{@cells["A1"].render(owner)} #{@cells["A2"].render(owner)} #{@cells["A3"].render(owner)} #{@cells["A4"].render(owner)} \n" +
-    "B #{@cells["B1"].render(owner)} #{@cells["B2"].render(owner)} #{@cells["B3"].render(owner)} #{@cells["B4"].render(owner)} \n" +
-    "C #{@cells["C1"].render(owner)} #{@cells["C2"].render(owner)} #{@cells["C3"].render(owner)} #{@cells["C4"].render(owner)} \n" +
-    "D #{@cells["D1"].render(owner)} #{@cells["D2"].render(owner)} #{@cells["D3"].render(owner)} #{@cells["D4"].render(owner)}"
+
+      "  1 2 3 4 \n" +
+      "A #{@cells["A1"].render(owner)} #{@cells["A2"].render(owner)} #{@cells["A3"].render(owner)} #{@cells["A4"].render(owner)} \n" +
+      "B #{@cells["B1"].render(owner)} #{@cells["B2"].render(owner)} #{@cells["B3"].render(owner)} #{@cells["B4"].render(owner)} \n" +
+      "C #{@cells["C1"].render(owner)} #{@cells["C2"].render(owner)} #{@cells["C3"].render(owner)} #{@cells["C4"].render(owner)} \n" +
+      "D #{@cells["D1"].render(owner)} #{@cells["D2"].render(owner)} #{@cells["D3"].render(owner)} #{@cells["D4"].render(owner)}"
+
+      print "  1 2 3 4 \n"
+      print "A #{@cells["A1"].render(owner)} #{@cells["A2"].render(owner)} #{@cells["A3"].render(owner)} #{@cells["A4"].render(owner)} \n"
+      print "B #{@cells["B1"].render(owner)} #{@cells["B2"].render(owner)} #{@cells["B3"].render(owner)} #{@cells["B4"].render(owner)} \n"
+      print "C #{@cells["C1"].render(owner)} #{@cells["C2"].render(owner)} #{@cells["C3"].render(owner)} #{@cells["C4"].render(owner)} \n"
+      print "D #{@cells["D1"].render(owner)} #{@cells["D2"].render(owner)} #{@cells["D3"].render(owner)} #{@cells["D4"].render(owner)} \n"
   end
 end
