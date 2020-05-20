@@ -1,5 +1,3 @@
-
-require './lib/ship'
 require 'pry'
 
 class Cell
@@ -50,39 +48,48 @@ class Cell
     end
   end
 
+  def show_miss
+    if self.fired_upon? == false
+      "."
+    elsif self.fired_upon? == true
+      "M"
+    end
+  end
+
+  def hide_ships
+    if self.empty? == true
+      show_miss
+    elsif self.empty? == false
+      if self.fired_upon? == false
+        "."
+      elsif self.ship.sunk? == true
+        "X"
+      elsif self.fired_upon? == true
+        "H"
+      end
+    end
+  end
+
+  def show_ships
+    if self.empty? == true
+      show_miss
+    elsif self.empty? == false
+      if self.fired_upon? == false
+        "S"
+      elsif self.ship.sunk? == true
+        "X"
+      elsif self.fired_upon? == true
+        "H"
+      end
+    end
+
+  end
+
   def render(boolean = false)
     if boolean == false
-      if self.empty? == true
-        if self.fired_upon? == false
-          "."
-        elsif self.fired_upon? == true
-          "M"
-        end
-      elsif self.empty? == false
-        if self.fired_upon? == false
-          "."
-        elsif self.ship.sunk? == true
-          "X"
-        elsif self.fired_upon? == true
-          "H"
-        end
-      end
+      hide_ships
     else
-      if self.empty? == true
-        if self.fired_upon? == false
-          "."
-        elsif self.fired_upon? == true
-          "M"
-        end
-      elsif self.empty? == false
-        if self.fired_upon? == false
-          "S"
-        elsif self.ship.sunk? == true
-          "X"
-        elsif self.fired_upon? == true
-          "H"
-        end
-      end
+      show_ships
     end
   end
 

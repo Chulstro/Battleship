@@ -1,6 +1,8 @@
 require 'minitest'
 require 'minitest/autorun'
-require './lib/ship'
+require 'minitest/pride'
+require '../lib/ship'
+require '../lib/cell'
 
 class ShipTest < Minitest::Test
   def setup
