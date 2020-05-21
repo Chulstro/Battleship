@@ -27,7 +27,7 @@ class Runner
 
   def get_player_shot_input
     puts "Fire when ready!"
-    @shot = gets.chomp
+    @shot = gets.chomp.upcase
 
     if board.valid_coordinate?(shot) == false
       puts "Please enter a valid coordinate..."
@@ -40,11 +40,11 @@ class Runner
     puts "Enter the THREE coordinates for your cruiser placement"
     puts "Coordinates must be entered sequentially (A1 -> A2 -> A3, or B2 -> C2 -> D2)"
     print "Coordinate 1: "
-    @coord1 = gets.chomp
+    @coord1 = gets.chomp.upcase
     print "Coordinate 2: "
-    @coord2 = gets.chomp
+    @coord2 = gets.chomp.upcase
     print "Coordinate 3: "
-    @coord3 = gets.chomp
+    @coord3 = gets.chomp.upcase
     @cruiser_array = [@coord1, @coord2, @coord3]
 
     @cruiser_array.select do |coord|
@@ -65,13 +65,13 @@ class Runner
   end
 
   def place_submarine
-
+    puts "=" *25
     puts "Your submarine occupies two adjacent cells."
     puts "Enter the TWO sequential coordinates for your submarine: "
     print "Coordinate 1: "
-    @coord_sub_1 = gets.chomp
+    @coord_sub_1 = gets.chomp.upcase
     print "Coordinate 2: "
-    @coord_sub_2 = gets.chomp
+    @coord_sub_2 = gets.chomp.upcase
     @sub_array = [@coord_sub_1, @coord_sub_2]
 
     @sub_array.select do |coord|
@@ -91,8 +91,6 @@ class Runner
   end
 
   def intro
-    puts "WELCOME TO BATTLESHIP!!"
-    puts ""
     puts "Let's place your ships."
     puts "You have two ships, a cruiser and a submarine."
 
@@ -153,7 +151,11 @@ class Runner
       print @board2.render(true)
       puts ""
     end
-    puts "Thanks for playing!"
+    if @cruiser.sunk? && @submarine.sunk?
+      puts "#{@player_1} wins! Thanks for playing!"
+    else
+      puts "#{@player_2} wins! Thanks for playing!"
+    end
   end
 
   def place_ships
@@ -187,5 +189,11 @@ class Runner
   end
 end
 
-run = Runner.new("Chan", "Comp")
+puts "WELCOME TO BATTLESHIP!!"
+puts ""
+puts "Please give us your name, Admiral"
+
+name = gets.chomp
+
+run = Runner.new(name, "Computer")
 run.start
