@@ -107,23 +107,23 @@ class Runner
     puts "For example, here are two valid placements for your cruiser"
     puts "=" *25
     puts "First Placement: Coordinates B2, B3, and B4: "
-    @board_cruiser_ex_1.render(true)
+    print @board_cruiser_ex_1.render(true)
     puts "=" *25
     puts "Second Placement: Coordinates A2, B2, and C2: "
     @board_cruiser_ex_2.place(cruiser_ex, ["A2","B2","C2"])
-    @board_cruiser_ex_2.render(true)
+    print @board_cruiser_ex_2.render(true)
     puts "="*25
   end
 
   def place_both_ships
 
-    intro 
+    intro
     until (@board2.valid_placement?(@cruiser2, @cruiser_array) )
       place_cruiser
     end
 
     @board2.place(@cruiser2, @cruiser_array)
-    @board2.render(true)
+    print @board2.render(true)
     puts ""
 
     until (@board2.valid_placement?(@submarine2, @sub_array))
@@ -131,7 +131,7 @@ class Runner
     end
 
     @board2.place(@submarine2, @sub_array)
-    @board2.render(true)
+    print @board2.render(true)
   end
 
   def start
@@ -147,10 +147,10 @@ class Runner
       @random_selection.shift
 
       puts "Enemy Board:"
-      @board.render
+      print @board.render
       puts ""
       puts "Your Board:"
-      @board2.render(true)
+      print @board2.render(true)
       puts ""
     end
     puts "Thanks for playing!"
@@ -186,3 +186,6 @@ class Runner
     @random_selection = @board2.cells.keys.shuffle
   end
 end
+
+run = Runner.new("Chan", "Comp")
+run.start
