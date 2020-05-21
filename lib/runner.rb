@@ -6,7 +6,7 @@ require 'pry'
 class Runner
   attr_reader :board, :shot
 
-  def initialize(player_1, player_2 = "Computer")
+  def initialize(player_1 = "Player 1", player_2 = "Computer")
     @player_1 = player_1
     @player_2 = player_2
 
@@ -52,7 +52,7 @@ class Runner
         puts "=" *25
         puts "Coordinates are not valid!!! Please retry ship placement."
         puts "=" *25
-        # place_cruiser
+        place_cruiser
       end
     end
 
@@ -79,7 +79,7 @@ class Runner
         puts "=" *25
         puts "Coordinates are not valid!!! Please retry ship placement."
         puts "=" *25
-        # place_submarine
+        place_submarine
       end
     end
 
@@ -91,6 +91,12 @@ class Runner
   end
 
   def intro
+
+    puts "WELCOME TO BATTLESHIP!!"
+    puts ""
+    puts "Please give us your name, Admiral"
+
+    name = gets.chomp
     puts "Let's place your ships."
     puts "You have two ships, a cruiser and a submarine."
 
@@ -189,11 +195,5 @@ class Runner
   end
 end
 
-puts "WELCOME TO BATTLESHIP!!"
-puts ""
-puts "Please give us your name, Admiral"
-
-name = gets.chomp
-
-run = Runner.new(name, "Computer")
+run = Runner.new
 run.start
