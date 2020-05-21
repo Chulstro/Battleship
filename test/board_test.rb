@@ -73,7 +73,6 @@ class BoardTest < Minitest::Test
     submarine = Ship.new("Submarine",2)
     @board.place(cruiser, ["A1", "A2", "A3"])
     @board.place(submarine, ["C1", "C2"])
-    binding.pry
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . .", @board.render
     @board.cells["A4"].fire_upon
     @board.cells["C1"].fire_upon
