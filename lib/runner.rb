@@ -39,11 +39,11 @@ class Runner
 
     puts "Enter the THREE coordinates for your cruiser placement"
     puts "Coordinates must be entered sequentially (A1 -> A2 -> A3, or B2 -> C2 -> D2)"
-    print "Coordinate 1: "
+    puts "Coordinate 1: "
     @coord1 = gets.chomp.upcase
-    print "Coordinate 2: "
+    puts "Coordinate 2: "
     @coord2 = gets.chomp.upcase
-    print "Coordinate 3: "
+    puts "Coordinate 3: "
     @coord3 = gets.chomp.upcase
     @cruiser_array = [@coord1, @coord2, @coord3]
 
@@ -52,7 +52,7 @@ class Runner
         puts "=" *25
         puts "Coordinates are not valid!!! Please retry ship placement."
         puts "=" *25
-        place_cruiser
+        # place_cruiser
       end
     end
 
@@ -68,9 +68,9 @@ class Runner
     puts "=" *25
     puts "Your submarine occupies two adjacent cells."
     puts "Enter the TWO sequential coordinates for your submarine: "
-    print "Coordinate 1: "
+    puts "Coordinate 1: "
     @coord_sub_1 = gets.chomp.upcase
-    print "Coordinate 2: "
+    puts "Coordinate 2: "
     @coord_sub_2 = gets.chomp.upcase
     @sub_array = [@coord_sub_1, @coord_sub_2]
 
@@ -79,7 +79,7 @@ class Runner
         puts "=" *25
         puts "Coordinates are not valid!!! Please retry ship placement."
         puts "=" *25
-        place_submarine
+        # place_submarine
       end
     end
 
@@ -105,11 +105,11 @@ class Runner
     puts "For example, here are two valid placements for your cruiser"
     puts "=" *25
     puts "First Placement: Coordinates B2, B3, and B4: "
-    print @board_cruiser_ex_1.render(true)
+    puts @board_cruiser_ex_1.render(true)
     puts "=" *25
     puts "Second Placement: Coordinates A2, B2, and C2: "
     @board_cruiser_ex_2.place(cruiser_ex, ["A2","B2","C2"])
-    print @board_cruiser_ex_2.render(true)
+    puts @board_cruiser_ex_2.render(true)
     puts "="*25
   end
 
@@ -121,7 +121,7 @@ class Runner
     end
 
     @board2.place(@cruiser2, @cruiser_array)
-    print @board2.render(true)
+    puts @board2.render(true)
     puts ""
 
     until (@board2.valid_placement?(@submarine2, @sub_array))
@@ -129,7 +129,7 @@ class Runner
     end
 
     @board2.place(@submarine2, @sub_array)
-    print @board2.render(true)
+    puts @board2.render(true)
   end
 
   def start
@@ -145,10 +145,10 @@ class Runner
       @random_selection.shift
 
       puts "Enemy Board:"
-      print @board.render
+      puts @board.render
       puts ""
       puts "Your Board:"
-      print @board2.render(true)
+      puts @board2.render(true)
       puts ""
     end
     if @cruiser.sunk? && @submarine.sunk?
